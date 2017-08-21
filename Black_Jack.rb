@@ -14,10 +14,12 @@ class BlackJack
     deck.shuffle_cards
     hand1 = []
     dealer_hand = []
-    hand1 << deck.cards.sample(2)
-    dealer_hand << deck.cards.sample(1)
+    hand1 << deck.cards.sample
+    dealer_hand << deck.cards.sample
+    hand1 << deck.cards.sample
+    dealer_hand << deck.cards.sample
     puts "#{hand1}"
-    puts "#{dealer_hand}"
+    puts "#{dealer_hand.at(0)}"
     hitting(deck, hand1, dealer_hand)
   end
 
@@ -29,13 +31,55 @@ class BlackJack
       puts "#{hand1}"
       hitting(deck, hand1, dealer_hand)
     when "n"
-      dealer_hand << deck.cards.sample
       puts "#{hand1}"
       puts "#{dealer_hand}"
+      final(hand1, dealer_hand)
     else
       puts "Invalid input"
       hitting(hand, dealer_hand)
     end
+  end
 
+
+  def ace(e)
+    p 'do you want your ace to equal 11 or 1'
+    case gets.strip.to_i
+    when 1
+      e = 1
+    when 11
+      e = 11
+    else 
+      p 'Invalid option'
+      ace(e)
+    end
+  end
+
+
+  def final(hand1, dealer_hand)
+    rank = []
+    hand1.each_with_index do |ranks, i|
+    rank << hand1[i].rank
+    rank = rank.map do |e|
+  if e == 'J'
+    10
+  elsif e == 'K'
+    10
+  elsif e == 'Q'
+    10
+  elsif e == 'A'
+    ace(e)
+  else
+    e.to_i
+    
   end
 end
+    end
+    binding.pry
+
+
+   
+  end
+end
+
+
+
