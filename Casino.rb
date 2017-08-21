@@ -15,7 +15,7 @@ class Casino
   def menu
     p '1) Play High Low'
     p '2) Quit'
-   
+   #option to display wallet
     case gets.to_i
     when 1
       HighLow.new(@player)
