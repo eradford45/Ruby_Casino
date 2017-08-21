@@ -4,8 +4,8 @@ class BlackJack
     p "Welcome to Black Jack #{player.name}"
     p "You have #{player.wallet.amount} to bet with!"
     p "How much would you like to bet?"
-    bet = gets.strip.to_f
-    player.wallet.amount = (player.wallet.amount - bet)
+    @bet = gets.strip.to_f
+    player.wallet.amount = (player.wallet.amount - @bet)
     deal(player)
   end
 
@@ -20,23 +20,23 @@ class BlackJack
     dealer_hand << deck.cards.sample
     puts "#{hand1}"
     puts "#{dealer_hand.at(0)}"
-    hitting(deck, hand1, dealer_hand)
+    hitting(player, deck, hand1, dealer_hand)
   end
 
-  def hitting(deck, hand1, dealer_hand)
+  def hitting(player, deck, hand1, dealer_hand)
     puts 'Would you like to hit? (Y/N)'
     case gets.strip.downcase
     when "y"
       hand1 << deck.cards.sample
       puts "#{hand1}"
-      hitting(deck, hand1, dealer_hand)
+      hitting(player, deck, hand1, dealer_hand)
     when "n"
       puts "#{hand1}"
       puts "#{dealer_hand}"
-      final_hands(hand1, dealer_hand, deck)
+      final_hands(player, hand1, dealer_hand, deck)
     else
       puts "Invalid input"
-      hitting(hand, dealer_hand)
+      hitting(player, deck, hand, dealer_hand)
     end
   end
 
@@ -54,7 +54,7 @@ class BlackJack
     end
   end
 
-  def dealer_ace(hand1, deal_rank, deck, dealer_hand)
+  def dealer_ace(player, hand1, deal_rank, deck, dealer_hand)
     deal1_rank = deal_rank.map do |e|
       if e == 0
         @sum = deal_rank.reduce(:+)
@@ -67,12 +67,12 @@ class BlackJack
         e.to_i
       end
     end
-    dealer_hit(hand1, deal1_rank, deck, dealer_hand)
-    
+    dealer_hit(player, hand1, deal1_rank, deck, dealer_hand)
+
   end
 
 
-  def dealer_hit(hand1, deal1_rank, deck, dealer_hand)
+  def dealer_hit(player, hand1, deal1_rank, deck, dealer_hand)
     deal2 = []
     deal_rank1 = deal1_rank
     sum2 = deal1_rank.reduce(:+)
@@ -95,29 +95,30 @@ class BlackJack
 
       end
     end
-    dealer_ace(hand1, deal_rank1, deck, dealer_hand)
+    dealer_ace(player, hand1, deal_rank1, deck, dealer_hand)
     else
-    reveal(hand1, deal_rank1)
-    
+      puts "#{deal_rank1}"
+    reveal(player, hand1, deal_rank1)
+
     end
   end
 
 
-  def final_hands(hand1, dealer_hand, deck)
+  def final_hands(player, hand1, dealer_hand, deck)
     rank = []
     hand1.each_with_index do |ranks, i|
     rank << hand1[i].rank
-    rank = rank.map do |e|
-  if e == 'J'
-    10
-  elsif e == 'K'
-    10
-  elsif e == 'Q'
-    10
-  elsif e == 'A'
-    ace(e)
-  else
-    e.to_i
+      rank = rank.map do |e|
+        if e == 'J'
+          10
+        elsif e == 'K'
+          10
+        elsif e == 'Q'
+          10
+        elsif e == 'A'
+          ace(e)
+        else
+          e.to_i
         end
       end
     end
@@ -139,26 +140,41 @@ class BlackJack
         end
       end
     end
-    dealer_ace(rank, deal_rank, deck, dealer_hand)
+    dealer_ace(player, rank, deal_rank, deck, dealer_hand)
   end
 
-  def reveal(rank, deal_rank)
+  def reveal(player, rank, deal_rank)
     sum1 = rank.reduce(:+)
     sum2 = deal_rank.reduce(:+)
 
     puts "The dealer has #{sum2}"
     puts "You have #{sum1}"
 
-    if sum1 > 21
+    if sum1 == sum2 && sum1 <= 21
+      puts "It was a push"
+      player.wallet.amount = (player.wallet.amount + @bet)
+      puts "Your have #{player.wallet.amount}"
+    elsif sum1 == 21
+      puts "Blackjack! Winner Winner Chicken Dinner!"
+      player.wallet.amount = (player.wallet.amount + (@bet * 3))
+      puts "Your have #{player.wallet.amount}"
+    elsif sum2 == 21
+      puts "Dealer Blackjack. You suck!"
+      puts "Your have #{player.wallet.amount}"
+    elsif sum1 > 21
       puts "You bust! Better luck next time!"
+      puts "Your have #{player.wallet.amount}"
     elsif sum2 > 21
-      puts "Dealer bust! You win?"
+      puts "Dealer bust! You win!"
+      player.wallet.amount = (player.wallet.amount + (@bet * 2))
+      puts "Your have #{player.wallet.amount}"
     elsif sum1 > sum2
       puts "You're a winner!"
+      player.wallet.amount = (player.wallet.amount + (@bet * 2))
+      puts "Your have #{player.wallet.amount}"
     elsif sum2 > sum1
       puts "You're a looser! Better luck next time."
-    else
-      puts "It was a push"
+      puts "Your have #{player.wallet.amount}"
     end
   end
 
