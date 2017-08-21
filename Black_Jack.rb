@@ -70,14 +70,10 @@ class BlackJack
     ace(e)
   else
     e.to_i
-    
-  end
-end
+        end
+      end
     end
-    binding.pry
 
-
-   
   end
 end
 
