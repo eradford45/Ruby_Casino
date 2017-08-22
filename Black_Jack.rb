@@ -70,7 +70,12 @@ class BlackJack
   def dealer_ace(player, hand1, deal_rank, deck, dealer_hand)
     deal1_rank = deal_rank.map do |e|
       if e == 0
+        begin
         @sum = deal_rank.reduce(:+)
+        rescue
+          puts "Dealer was caught cheating!"
+          puts "Unfortunately its house rules..."
+        end
         if (@sum + 11) > 21
           e = 1
         else
