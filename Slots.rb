@@ -6,6 +6,9 @@ class Slots
     puts "How much would you like to bet".colorize(:yellow)
     @bet = gets.strip.to_i
     player.wallet.amount -= @bet
+    puts 'Press Enter'.colorize(:cyan)
+    puts 'To Continue'.colorize(:cyan)
+    gets
     pull_lever(player)  
   end
 
