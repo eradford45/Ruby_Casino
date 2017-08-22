@@ -1,5 +1,8 @@
 require 'pry'
-require 'colorizeç'
+
+
+require 'colorize'
+
 require_relative 'Player'
 require_relative 'high_low'
 require_relative 'Black_Jack'
