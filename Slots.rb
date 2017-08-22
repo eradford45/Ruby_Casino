@@ -1,31 +1,34 @@
 class Slots
   attr_accessor
   def initialize(player)
-    puts 'Welcome to the Slot machines'.colorize(:cyan)
-    puts "You have #{player.wallet.amount}".colorize(:yellow)
-    puts "How much would you like to bet".colorize(:yellow)
+    puts "__________________________________________________".colorize(:color => :light_blue, :background => :red)
+    puts "           ____  _     ___ _____ ____ ".colorize(:green)
+    puts "          / ___|| |   / _ \\_   _/ ___|".colorize(:green)
+    puts "          \\___ \\| |  | | | || |\\___ \\".colorize(:green)
+    puts "           ___) | |__| |_| || | ___)  |".colorize(:green)
+    puts "          |____/|_____\\___/ |_| |____/ ".colorize(:green)
+    puts "__________________________________________________".colorize(:color => :light_blue, :background => :red)
+    p "You have #{player.wallet.amount}"
+    p "How much would you like to bet?"
     @bet = gets.strip.to_i
     player.wallet.amount -= @bet
-    puts 'Press Enter'.colorize(:cyan)
-    puts 'To Continue'.colorize(:cyan)
-    gets
-    pull_lever(player)  
+    pull_lever(player)
   end
 
 
   def win(player)
-    puts 'Winner'.colorize(:yellow)
-    puts "You won #{@bet * 3}".colorize(:yellow)
+    puts 'Winner'.colorize(:green)
+    puts "You won #{@bet * 3}".colorize(:green)
     player.wallet.amount += (@bet * 3)
-    puts "You now have #{player.wallet.amount}".colorize(:magenta)
+    puts "You now have #{player.wallet.amount}".colorize(:green)
   end
 
 
   def win2(player)
-    puts 'Winner'.colorize(:yellow)
-    puts "You won #{@bet * 2}".colorize(:yellow)
+    puts 'Winner'.colorize(:green)
+    puts "You won #{@bet * 2}".colorize(:green)
     player.wallet.amount += (@bet * 2)
-    puts "You now have #{player.wallet.amount}".colorize(:magenta)
+    puts "You now have #{player.wallet.amount}".colorize(:green)
   end
 
   def pull_lever(player)
@@ -39,12 +42,10 @@ class Slots
   opt7 = options.sample
   opt8 = options.sample
   opt9 = options.sample
-  puts "#{opt1} #{opt2} #{opt3}".colorize(:yellow)
-  puts "#{opt4} #{opt5} #{opt6}".colorize(:blue)
-  puts "#{opt7} #{opt8} #{opt9}".colorize(:yellow
-  
-  )
-  case 
+  p "#{opt1} #{opt2} #{opt3}"
+  p "#{opt4} #{opt5} #{opt6}"
+  p "#{opt7} #{opt8} #{opt9}"
+  case
     when (opt1 == opt2) && (opt2 == opt3)
       win(player)
     when (opt1 == opt5) && (opt1 == opt9)
@@ -61,7 +62,7 @@ class Slots
       win(player)
     when (opt7 == opt8) && (opt9 == opt7)
       win(player)
-    when opt1 == opt2 
+    when opt1 == opt2
       win2(player)
     when opt1 == opt4
       win2(player)
@@ -70,11 +71,11 @@ class Slots
     when opt3 == opt6
       win2(player)
     when opt4 == opt5
-      win2(player) 
+      win2(player)
     when opt4 == opt7
       win2(player)
     when opt5 == opt6
-      win2(player) 
+      win2(player)
     when opt5 == opt8
       win2(player)
     when opt6 == opt9
@@ -83,25 +84,19 @@ class Slots
       win2(player)
     when opt8 == opt9
       win2(player)
-    else 
+    else
       puts 'You Lose'.colorize(:red)
       puts "You lost #{@bet}".colorize(:red)
       puts "You now have #{player.wallet.amount}".colorize(:red)
-    
-    end
-     puts '                           __  __________   ____  __                      
-                          /  |/  / ____/ | / / / / /                      
- ________________________/ /|_/ / __/ /  |/ / / / /_______________________
-/_____/_____/_____/_____/ /  / / /___/ /|  / /_/ /_____/_____/_____/_____/
-                       /_/  /_/_____/_/ |_/\____/                         
-                                                                          '.colorize(:red)
-    puts '1) GO AGAIN!'.colorize(:yellow)
-    puts '2) Main Menu'.colorize(:yellow)
-    case gets.strip.to_i
-    when 1
-    Slots.new(player)
-    when 2
 
+    end
+    p '1) GO AGAIN!'
+    p '2) Main Menu'
+    case gets.strip.to_i
+      when 1
+        Slots.new(player)
+      when 2
+        RandomAct.new(player)
     end
   end
 end
