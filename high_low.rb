@@ -34,7 +34,7 @@ class HighLow
       p 'You are a Winner!'
       winnings = (bet * 2)
     player.wallet.amount = (player.wallet.amount + winnings)
-      p "You won #{winngins}"
+      p "You won #{winnings}"
       p "Your wallet now has #{player.wallet.amount}"
     else
       p 'That sucks. Gimme my money!'

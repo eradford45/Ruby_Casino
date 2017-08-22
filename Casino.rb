@@ -4,15 +4,16 @@ require_relative 'high_low'
 require_relative 'Black_Jack'
 require_relative 'Dice'
 require_relative 'Deck'
+require_relative 'Slots'
 
 
 class Casino
   attr_accessor :player
   def initialize
-    @players = []
+   
     p 'Welcome To The Ruby Casino'
-    @player1 = Player.new
-    @players << 1
+    @player = Player.new
+
     menu
   end
 
@@ -21,9 +22,7 @@ class Casino
     p '2) Play Black Jack'
     p '3) Play slots'
     p '4) View Wallet'
-    p '5) Create new player'
-    p '6) new game'
-    p '7) Quit'
+    p '5) Quit'
     case gets.to_i
     when 1
       HighLow.new(@player)
@@ -33,8 +32,7 @@ class Casino
       Slots.new(@player)
     when 4
       p "#{@player.wallet.amount}"
-    when 6
-    when 7
+    when 5
       p 'Thanks for Playing'
       exit
     else

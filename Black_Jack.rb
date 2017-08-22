@@ -17,9 +17,10 @@ class BlackJack
     hand1 << deck.cards.sample
     dealer_hand << deck.cards.sample
     hand1 << deck.cards.sample
-    dealer_hand << deck.cards.sample
+  
     puts "#{hand1}"
-    puts "#{dealer_hand.at(0)}"
+    puts "#{dealer_hand}"
+    dealer_hand << deck.cards.sample
     hitting(player, deck, hand1, dealer_hand)
   end
 
