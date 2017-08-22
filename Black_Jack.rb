@@ -1,9 +1,16 @@
 class BlackJack
   attr_accessor
   def initialize(player)
-    puts "Welcome to Black Jack #{player.name}".colorize(:cyan)
-    puts "You have #{player.wallet.amount} to bet with!".colorize(:yellow)
-    puts "How much would you like to bet?".colorize(:yellow)
+    puts "__________________________________________________".colorize(:color => :light_blue, :background => :red)
+    puts "______ _            _      ___            _    _".colorize(:green)
+    puts "| ___ \\ |          | |    |_  |          | |  | |".colorize(:green)
+    puts "| |_/ / | __ _  ___| | __   | | __ _  ___| | _| |".colorize(:green)
+    puts "| ___ \\ |/ _` |/ __| |/ /   | |/ _` |/ __| |/ / |".colorize(:green)
+    puts "| |_/ / | (_| | (__|   </\\__/ / (_| | (__|   <|_|".colorize(:green)
+    puts "\\____/|_|\\__,_|\\___|_|\\_\\____/ \\__,_|\\___|_|\\_(_)".colorize(:green)
+    puts "__________________________________________________".colorize(:color => :light_blue, :background => :red)
+    p "You have #{player.wallet.amount} to bet with!"
+    p "How much would you like to bet?"
     @bet = gets.strip.to_i
     player.wallet.amount = (player.wallet.amount - @bet)
     deal(player)
@@ -183,10 +190,25 @@ class BlackJack
       puts "You're a looser! Better luck next time.".colorize(:red)
       puts "Your have #{player.wallet.amount}".colorize(:red)
     end
+
+    if player.wallet.amount == 0
+      puts "You are broke and need to get a job!".colorize(:color => :blue, :background => :yellow)
+      exit
+    else
+      sub_menu(player)
+    end
   end
 
-
-
+  def sub_menu(player)
+    p '1) GO AGAIN!'
+    p '2) Main Menu'
+    case gets.strip.to_i
+      when 1
+        BlackJack.new(player)
+      when 2
+        RandomAct.new(player)
+    end
+  end
 
 
 end
