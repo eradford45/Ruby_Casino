@@ -8,8 +8,8 @@ class Slots
     puts "           ___) | |__| |_| || | ___)  |".colorize(:green)
     puts "          |____/|_____\\___/ |_| |____/ ".colorize(:green)
     puts "__________________________________________________".colorize(:color => :light_blue, :background => :red)
-    p "You have #{player.wallet.amount}"
-    p "How much would you like to bet?"
+    p "You have #{player.wallet.amount}".colorize(:yellow)
+    p "How much would you like to bet?".colorize(:yellow)
     @bet = gets.strip.to_i
     player.wallet.amount -= @bet
     pull_lever(player)
@@ -90,8 +90,8 @@ class Slots
       puts "You now have #{player.wallet.amount}".colorize(:red)
 
     end
-    p '1) GO AGAIN!'
-    p '2) Main Menu'
+    p '1) GO AGAIN!'.colorize(:yellow)
+    p '2) Main Menu'.colorize(:red)
     case gets.strip.to_i
       when 1
         Slots.new(player)

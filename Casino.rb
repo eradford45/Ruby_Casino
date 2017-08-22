@@ -32,12 +32,6 @@ class Casino
   end
 
   def menu
-    puts '                           __  __________   ____  __
-                          /  |/  / ____/ | / / / / /
- ________________________/ /|_/ / __/ /  |/ / / / /_______________________
-/_____/_____/_____/_____/ /  / / /___/ /|  / /_/ /_____/_____/_____/_____/
-                       /_/  /_/_____/_/ |_/\____/
-                                                                          '.colorize(:red)
     puts '1) Play High Low'.colorize(:blue)
     puts '2) Play Black Jack'.colorize(:yellow)
     puts '3) Play Slots'.colorize(:blue)
