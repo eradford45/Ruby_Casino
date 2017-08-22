@@ -4,7 +4,7 @@ class BlackJack
     p "Welcome to Black Jack #{player.name}"
     p "You have #{player.wallet.amount} to bet with!"
     p "How much would you like to bet?"
-    @bet = gets.strip.to_f
+    @bet = gets.strip.to_i
     player.wallet.amount = (player.wallet.amount - @bet)
     deal(player)
   end
@@ -18,8 +18,8 @@ class BlackJack
     dealer_hand << deck.cards.sample
     hand1 << deck.cards.sample
     dealer_hand << deck.cards.sample
-    puts "#{hand1}"
-    puts "#{dealer_hand.at(0)}"
+    puts "Your hand: #{hand1[0].rank} + #{hand1[1].rank}\n".colorize(:yellow)
+    puts "Dealer showing: #{dealer_hand[0].rank}".colorize(:cyan)
     hitting(player, deck, hand1, dealer_hand)
   end
 
@@ -28,11 +28,17 @@ class BlackJack
     case gets.strip.downcase
     when "y"
       hand1 << deck.cards.sample
-      puts "#{hand1}"
+        hand1.each_with_index do |value, i|
+          print "Card #{i + 1}: #{hand1[i].rank} \n".colorize(:yellow)
+        end
       hitting(player, deck, hand1, dealer_hand)
     when "n"
-      puts "#{hand1}"
-      puts "#{dealer_hand}"
+      hand1.each_with_index do |value, i|
+        print "Card #{i + 1}: #{hand1[i].rank} \n".colorize(:yellow)
+      end
+      dealer_hand.each_with_index do |value, i|
+        print "Deal card #{i + 1}: #{dealer_hand[i].rank} \n".colorize(:cyan)
+      end
       final_hands(player, hand1, dealer_hand, deck)
     else
       puts "Invalid input"
@@ -79,7 +85,9 @@ class BlackJack
     if sum2 < 17
       deal2 << deck.cards.sample
       deal2.each_with_index do |ranks, i|
-    deal_rank1 << dealer_hand[i].rank
+      puts "Dealer Hit: #{deal2[i].rank}".colorize(:cyan)
+      deal_rank1 << dealer_hand[i].rank
+      # puts "Dealer Hit".colorize(:cyan)
       deal_rank = deal_rank1.map do |e|
         if e == 'J'
           10
@@ -97,7 +105,6 @@ class BlackJack
     end
     dealer_ace(player, hand1, deal_rank1, deck, dealer_hand)
     else
-      puts "#{deal_rank1}"
     reveal(player, hand1, deal_rank1)
 
     end
@@ -151,30 +158,30 @@ class BlackJack
     puts "You have #{sum1}"
 
     if sum1 == sum2 && sum1 <= 21
-      puts "It was a push"
+      puts "It was a push".colorize(:yellow)
       player.wallet.amount = (player.wallet.amount + @bet)
-      puts "Your have #{player.wallet.amount}"
+      puts "Your have #{player.wallet.amount}".colorize(:yellow)
     elsif sum1 == 21
-      puts "Blackjack! Winner Winner Chicken Dinner!"
+      puts "Blackjack! Winner Winner Chicken Dinner!".colorize(:green)
       player.wallet.amount = (player.wallet.amount + (@bet * 3))
-      puts "Your have #{player.wallet.amount}"
+      puts "Your have #{player.wallet.amount}".colorize(:green)
     elsif sum2 == 21
-      puts "Dealer Blackjack. You suck!"
-      puts "Your have #{player.wallet.amount}"
+      puts "Dealer Blackjack. You suck!".colorize(:red)
+      puts "Your have #{player.wallet.amount}".colorize(:red)
     elsif sum1 > 21
-      puts "You bust! Better luck next time!"
-      puts "Your have #{player.wallet.amount}"
+      puts "You bust! Better luck next time!".colorize(:red)
+      puts "Your have #{player.wallet.amount}".colorize(:red)
     elsif sum2 > 21
-      puts "Dealer bust! You win!"
+      puts "Dealer bust! You win!".colorize(:green)
       player.wallet.amount = (player.wallet.amount + (@bet * 2))
-      puts "Your have #{player.wallet.amount}"
+      puts "Your have #{player.wallet.amount}".colorize(:green)
     elsif sum1 > sum2
-      puts "You're a winner!"
+      puts "You're a winner!".colorize(:green)
       player.wallet.amount = (player.wallet.amount + (@bet * 2))
-      puts "Your have #{player.wallet.amount}"
+      puts "Your have #{player.wallet.amount}".colorize(:green)
     elsif sum2 > sum1
-      puts "You're a looser! Better luck next time."
-      puts "Your have #{player.wallet.amount}"
+      puts "You're a looser! Better luck next time.".colorize(:red)
+      puts "Your have #{player.wallet.amount}".colorize(:red)
     end
   end
 
