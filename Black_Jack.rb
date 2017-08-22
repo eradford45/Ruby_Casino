@@ -94,26 +94,23 @@ class BlackJack
       deal2.each_with_index do |ranks, i|
       puts "Dealer Hit: #{deal2[i].rank}".colorize(:cyan)
       deal_rank1 << dealer_hand[i].rank
-      # puts "Dealer Hit".colorize(:cyan)
       deal_rank = deal_rank1.map do |e|
-        if e == 'J'
-          10
-        elsif e == 'K'
-          10
-        elsif e == 'Q'
-          10
-        elsif e == 'A'
-          0
-        else
-          e.to_i
+          if e == 'J'
+            10
+          elsif e == 'K'
+            10
+          elsif e == 'Q'
+            10
+          elsif e == 'A'
+            0
+          else
+            e.to_i
+          end
         end
-
       end
-    end
-    dealer_ace(player, hand1, deal_rank1, deck, dealer_hand)
+      dealer_ace(player, hand1, deal_rank1, deck, dealer_hand)
     else
-    reveal(player, hand1, deal_rank1)
-
+      reveal(player, hand1, deal_rank1)
     end
   end
 
