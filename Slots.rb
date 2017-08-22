@@ -1,9 +1,9 @@
 class Slots
   attr_accessor
   def initialize(player)
-    p 'Welcome to the Slot machines'
-    p "You have #{player.wallet.amount}"
-    p "How much would you like to bet"
+    puts 'Welcome to the Slot machines'.colorize(:cyan)
+    puts "You have #{player.wallet.amount}".colorize(:yellow)
+    puts "How much would you like to bet".colorize(:yellow)
     @bet = gets.strip.to_i
     player.wallet.amount -= @bet
     pull_lever(player)  
@@ -11,18 +11,18 @@ class Slots
 
 
   def win(player)
-    p 'Winner'
-    p "You won #{@bet * 3}"
+    puts 'Winner'.colorize(:yellow)
+    puts "You won #{@bet * 3}".colorize(:yellow)
     player.wallet.amount += (@bet * 3)
-    p "You now have #{player.wallet.amount}"
+    puts "You now have #{player.wallet.amount}".colorize(:magenta)
   end
 
 
   def win2(player)
-    p 'Winner'
-    p "You won #{@bet * 2}"
+    puts 'Winner'.colorize(:yellow)
+    puts "You won #{@bet * 2}".colorize(:yellow)
     player.wallet.amount += (@bet * 2)
-    p "You now have #{player.wallet.amount}"
+    puts "You now have #{player.wallet.amount}".colorize(:magenta)
   end
 
   def pull_lever(player)
@@ -36,9 +36,11 @@ class Slots
   opt7 = options.sample
   opt8 = options.sample
   opt9 = options.sample
-  p "#{opt1} #{opt2} #{opt3}"
-  p "#{opt4} #{opt5} #{opt6}"
-  p "#{opt7} #{opt8} #{opt9}"
+  puts "#{opt1} #{opt2} #{opt3}".colorize(:yellow)
+  puts "#{opt4} #{opt5} #{opt6}".colorize(:blue)
+  puts "#{opt7} #{opt8} #{opt9}".colorize(:yellow
+  
+  )
   case 
     when (opt1 == opt2) && (opt2 == opt3)
       win(player)
@@ -79,13 +81,19 @@ class Slots
     when opt8 == opt9
       win2(player)
     else 
-      p 'You Lose'
-      p "You lost #{@bet}"
-      p "You now have #{player.wallet.amount}"
+      puts 'You Lose'.colorize(:red)
+      puts "You lost #{@bet}".colorize(:red)
+      puts "You now have #{player.wallet.amount}".colorize(:red)
     
     end
-    p '1) GO AGAIN!'
-    p '2) Main Menu'
+     puts '                           __  __________   ____  __                      
+                          /  |/  / ____/ | / / / / /                      
+ ________________________/ /|_/ / __/ /  |/ / / / /_______________________
+/_____/_____/_____/_____/ /  / / /___/ /|  / /_/ /_____/_____/_____/_____/
+                       /_/  /_/_____/_/ |_/\____/                         
+                                                                          '.colorize(:red)
+    puts '1) GO AGAIN!'.colorize(:yellow)
+    puts '2) Main Menu'.colorize(:yellow)
     case gets.strip.to_i
     when 1
     Slots.new(player)

@@ -1,9 +1,9 @@
 class BlackJack
   attr_accessor
   def initialize(player)
-    p "Welcome to Black Jack #{player.name}"
-    p "You have #{player.wallet.amount} to bet with!"
-    p "How much would you like to bet?"
+    puts "Welcome to Black Jack #{player.name}".colorize(:cyan)
+    puts "You have #{player.wallet.amount} to bet with!".colorize(:yellow)
+    puts "How much would you like to bet?".colorize(:yellow)
     @bet = gets.strip.to_i
     player.wallet.amount = (player.wallet.amount - @bet)
     deal(player)
@@ -24,7 +24,7 @@ class BlackJack
   end
 
   def hitting(player, deck, hand1, dealer_hand)
-    puts 'Would you like to hit? (Y/N)'
+    puts 'Would you like to hit? (Y/N)'.colorize(:cyan)
     case gets.strip.downcase
     when "y"
       hand1 << deck.cards.sample
@@ -41,21 +41,21 @@ class BlackJack
       end
       final_hands(player, hand1, dealer_hand, deck)
     else
-      puts "Invalid input"
+      puts "Invalid input".colorize(:red)
       hitting(player, deck, hand, dealer_hand)
     end
   end
 
 
   def ace(e)
-    p 'do you want your ace to equal 11 or 1'
+    puts 'do you want your ace to equal 11 or 1'.colorize(:cyan)
     case gets.strip.to_i
       when 1
         e = 1
       when 11
         e = 11
       else
-        p 'Invalid option'
+        puts 'Invalid option'.colorize(:red)
         ace(e)
     end
   end
@@ -154,8 +154,8 @@ class BlackJack
     sum1 = rank.reduce(:+)
     sum2 = deal_rank.reduce(:+)
 
-    puts "The dealer has #{sum2}"
-    puts "You have #{sum1}"
+    puts "The dealer has #{sum2}".colorize(:red)
+    puts "You have #{sum1}".colorize(:cyan)
 
     if sum1 == sum2 && sum1 <= 21
       puts "It was a push".colorize(:yellow)

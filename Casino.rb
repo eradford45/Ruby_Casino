@@ -15,18 +15,24 @@ class Casino
   attr_accessor :player
   def initialize
    
-    p 'Welcome To The Ruby Casino'
+    puts 'Welcome To The Ruby Casino'.colorize(:light_blue)
     @player = Player.new
 
     menu
   end
 
   def menu
-    p '1) Play High Low'
-    p '2) Play Black Jack'
-    p '3) Play slots'
-    p '4) View Wallet'
-    p '5) Quit'
+    puts '                           __  __________   ____  __                      
+                          /  |/  / ____/ | / / / / /                      
+ ________________________/ /|_/ / __/ /  |/ / / / /_______________________
+/_____/_____/_____/_____/ /  / / /___/ /|  / /_/ /_____/_____/_____/_____/
+                       /_/  /_/_____/_/ |_/\____/                         
+                                                                          '.colorize(:red)
+    puts '1) Play High Low'.colorize(:blue)
+    puts '2) Play Black Jack'.colorize(:yellow)
+    puts '3) Play slots'.colorize(:blue)
+    puts '4) View Wallet'.colorize(:yellow)
+    puts '5) Quit'.colorize(:red)
     case gets.to_i
     when 1
       HighLow.new(@player)
@@ -35,12 +41,12 @@ class Casino
     when 3
       Slots.new(@player)
     when 4
-      p "#{@player.wallet.amount}"
+      puts "#{@player.wallet.amount}"
     when 5
-      p 'Thanks for Playing'
+      puts 'Thanks for Playing'.colorize(:blue)
       exit
     else
-      p 'invalid choice please try again'
+      puts 'invalid choice please try again'.colorize(:red)
     end
     menu
   end

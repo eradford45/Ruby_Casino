@@ -2,11 +2,11 @@ require_relative 'wallet'
 class Player
   attr_accessor :name, :age, :wallet
   def initialize
-    p 'What is your name?'
+    puts 'What is your name?'.colorize(:yellow)
     @name = gets.strip
-    p "What is your age #{name}"
+    puts "What is your age #{name}".colorize(:blue)
     @age = gets.to_i
-    p "How much money are you playing with #{name}?"
+    puts "How much money are you playing with #{name}?".colorize(:yellow)
     @wallet = Wallet.new(gets.to_f)
   end
 end

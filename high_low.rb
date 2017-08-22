@@ -3,18 +3,18 @@ require_relative 'Dice'
 class HighLow
   attr_accessor
   def initialize(player)
-    p "Welcome to High Low #{player.name}"
-    p "You have #{player.wallet.amount} to bet with!"
+    puts "Welcome to High Low #{player.name}".colorize(:magenta)
+    puts "You have #{player.wallet.amount} to bet with!".colorize(:yellow)
     #initial roll
     d = Dice.new
     d.show_sum
     num1 = d.sum_of_dice
     #ask the player to make bet
-    p "How much would you like to bet?"
+    puts "How much would you like to bet?".colorize(:yellow)
     bet = gets.strip.to_f
     player.wallet.amount = (player.wallet.amount - bet)
 
-    p "Will the next roll be higher or lower?"
+    puts "Will the next roll be higher or lower?".colorize(:magenta)
     choice = gets.strip
     case choice
       when "higher"
@@ -22,7 +22,7 @@ class HighLow
       when "lower"
         lower(num1, bet, player)
       else
-        "Speak clearly"
+        puts "Speak clearly".colorize(:red)
     end
   end
 
@@ -31,13 +31,13 @@ class HighLow
     d2.show_sum
     num2 = d2.sum_of_dice
     if num2 > first_roll
-      p 'You are a Winner!'
+      puts 'You are a Winner!'.colorize(:yellow)
       winnings = (bet * 2)
     player.wallet.amount = (player.wallet.amount + winnings)
-      p "You won #{winnings}"
-      p "Your wallet now has #{player.wallet.amount}"
+      puts "You won #{winnings}".colorize(:yellow)
+      puts "Your wallet now has #{player.wallet.amount}".colorize(:yellow)
     else
-      p 'That sucks. Gimme my money!'
+      puts 'That sucks. Gimme my money!'.colorize(:red)
     end
   end
 
@@ -46,17 +46,13 @@ class HighLow
     d2.show_sum
     num2 = d2.sum_of_dice
     if num2 < first_roll
-      p 'You are a Winner!'
+      puts 'You are a Winner!'.colorize(:yellow)
       winnings = (bet * 2)
     player.wallet.amount = (player.wallet.amount + winnings)
-      p "You won #{winnings}"
-      p "Your wallet now has #{player.wallet.amount}"
+      puts "You won #{winnings}".colorize(:yellow)
+      puts "Your wallet now has #{player.wallet.amount}"
     else
-      p 'That sucks. Gimme my money!'
+      puts 'That sucks. Gimme my money!'.colorize(:red)
     end
   end
-    # error checking to make player bet with what they have
-    # play the game
-    #add or subtract from the players wallet after the game
-    #allow them to play again or go back to main menu
 end
