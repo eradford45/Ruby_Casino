@@ -1,4 +1,4 @@
-source = 'rubygems.org'
+source 'https://rubygems.org'
 
 #debugging
 gem 'pry'

@@ -1,4 +1,5 @@
 require 'pry'
+require 'colorizeç'
 require_relative 'Player'
 require_relative 'high_low'
 require_relative 'Black_Jack'
